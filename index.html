@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Happy Birthday, Sophie</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@300;400&family=Caveat:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#5a2140;--rose:#d4527f;--deep:#b8316a;--paper:#fff7f9;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Jost',system-ui,sans-serif}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(circle at 18% 12%,#fff1f5,transparent 45%),radial-gradient(circle at 88% 88%,#f8c9d6,transparent 50%),#fcdbe4;color:var(--ink);font-family:var(--sans);overflow:hidden;cursor:default;user-select:none}
+#bg{position:fixed;inset:0;overflow:hidden;pointer-events:none}
+.bk{position:absolute;border-radius:50%;background:radial-gradient(circle,#ffffffaa,#fff0 70%);animation:drift ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(60px,-80px) scale(1.25)}}
+.pt{position:absolute;top:-30px;border-radius:100% 0 100% 0;animation:fall linear infinite}
+@keyframes fall{to{transform:translate(var(--dx),110vh) rotate(var(--rot))}}
+#cf{position:fixed;inset:0;pointer-events:none;z-index:5}
+.scene{position:fixed;inset:0;z-index:2;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:22px;padding:calc(28px + env(safe-area-inset-top,0px)) 28px calc(28px + env(safe-area-inset-bottom,0px))}
+.scene.on{display:flex;animation:sin 1s ease both}
+.scene.out{animation:sout .7s ease both}
+@keyframes sin{from{opacity:0}}
+@keyframes sout{to{opacity:0;transform:scale(1.04);filter:blur(6px)}}
+h1,h2,.serif{font-family:var(--serif);font-weight:500;margin:0;line-height:1.05;letter-spacing:-.01em}
+@keyframes up{from{opacity:0;transform:translateY(26px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.w{display:inline-block;opacity:0;animation:up 1s cubic-bezier(.2,.8,.2,1) forwards}
+.fade{animation:up 1.1s cubic-bezier(.2,.8,.2,1) 2.4s both}
+.q{font-size:clamp(2.3rem,9vw,5.2rem);max-width:11em}
+.card{position:relative;background:var(--paper);border-radius:28px;padding:clamp(28px,6vw,56px) clamp(24px,7vw,64px);max-width:min(92vw,640px);box-shadow:0 30px 80px #b8316a2a;animation:boing 1.1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes boing{from{transform:scale(.92) translateY(14px);opacity:0}}
+.card h2{font-size:clamp(2.1rem,7.5vw,3.8rem);font-style:italic}
+.card p{margin:16px 0 0;font-weight:300;font-size:clamp(1rem,3vw,1.25rem)}
+.hb{font-size:clamp(1.7rem,6vw,3.2rem);font-style:italic;color:var(--deep)}
+.nm{font-size:clamp(4.6rem,25vw,13rem);display:flex;justify-content:center}
+.ch{display:inline-block;opacity:0;animation:up 1.1s cubic-bezier(.2,.8,.2,1) forwards,bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.ul{width:clamp(170px,42vw,380px);margin-top:-6px}
+.ul path{fill:none;stroke:var(--rose);stroke-width:3;stroke-linecap:round;stroke-dasharray:320;stroke-dashoffset:320;animation:draw 1.6s ease 2.2s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.cake{width:clamp(230px,62vw,350px);overflow:visible;animation:up 1.3s cubic-bezier(.2,.8,.2,1) .2s both}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:fl .35s ease-in-out infinite alternate}
+@keyframes fl{to{transform:scale(1.12,.92) rotate(3deg)}}
+.blow .flame,.blow .glow{transform:scale(0);opacity:0;animation:none;transition:transform .5s ease-in,opacity .4s}
+.sm{opacity:0;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;transform-box:fill-box}
+.blow .sm{animation:smoke 2.6s ease-out forwards}
+.blow .sm+.sm{animation-delay:.3s}
+@keyframes smoke{0%{opacity:.8;transform:translateY(0)}100%{opacity:0;transform:translateY(-42px) scale(1.4)}}
+.tw{transform-box:fill-box;transform-origin:center;animation:tw 2.4s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:.2;transform:scale(.4)}50%{opacity:1;transform:scale(1.2)}}
+.cap{font-size:clamp(1.8rem,6vw,3rem);font-style:italic;transition:opacity .6s}
+.wish{font-size:clamp(1.7rem,6vw,3.2rem);font-style:italic;max-width:15em;opacity:0;animation:up 1.2s cubic-bezier(.2,.8,.2,1) forwards}
+.gal{display:flex;flex-wrap:wrap;gap:clamp(14px,3vw,28px);justify-content:center;max-width:1000px}
+.fr{width:clamp(110px,26vw,220px);aspect-ratio:3/4;background:#fff;padding:8px;border-radius:6px;box-shadow:0 14px 34px #b8316a40;opacity:0;animation:up 1.2s cubic-bezier(.2,.8,.2,1) forwards,bob 5s ease-in-out infinite}
+.fr:nth-child(odd){rotate:-3deg}.fr:nth-child(even){rotate:3deg}
+.fr.solo{width:min(clamp(200px,58vw,340px),calc(46vh*.75))}
+.fr img{width:100%;height:100%;object-fit:cover;border-radius:3px;display:block}
+.heart{width:92px;overflow:visible}
+.heart path{fill:#d4527f00;stroke:var(--rose);stroke-width:3;stroke-linejoin:round;stroke-dasharray:300;stroke-dashoffset:300;animation:draw 2s ease .3s forwards,fillin 1.2s ease 2s forwards,beat 1.6s ease-in-out 3.2s infinite;transform-box:fill-box;transform-origin:center}
+@keyframes fillin{to{fill:#d4527f}}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.12)}30%{transform:scale(1)}45%{transform:scale(1.08)}}
+.fin{font-size:clamp(2.6rem,10vw,6rem)}
+.sub{font-weight:300;font-size:clamp(1rem,3vw,1.3rem)}
+.gal{position:relative}
+.gal:before{content:"";position:absolute;inset:-48px;border-radius:50%;background:radial-gradient(circle,#ffffffcc,#fff0 65%);z-index:-1;animation:glow 4s ease-in-out infinite alternate}
+@keyframes glow{to{transform:scale(1.15);opacity:.7}}
+#rest{visibility:hidden}
+#typed:after{content:"";display:inline-block;width:2px;height:1.1em;background:var(--rose);margin-left:3px;vertical-align:-.15em;animation:blink 1s steps(1) infinite}
+#ltr.done #typed:after{display:none}
+@keyframes blink{50%{opacity:0}}
+#rh{transition:opacity .7s}#rh.hide{opacity:0}
+#wall{position:absolute;margin:0;font-family:var(--serif);font-style:italic;font-weight:500;line-height:1.35;text-align:center;transform-origin:0 0;opacity:0}
+#wall.go{opacity:1}
+#wall span{display:inline-block;margin:0 .18em;opacity:0;color:var(--ink);transition:opacity .35s,color .35s}
+#wall span.on{opacity:.35}
+#wall span.cur{opacity:1;color:var(--deep)}
+#wall.all span{opacity:1;color:var(--ink)}
+#wall.all span:nth-child(4n){color:var(--deep)}
+.lw{position:relative;animation:sheet 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes sheet{from{opacity:0;transform:translateY(46px) rotate(-4deg) scale(.96)}}
+.under{position:absolute;inset:0;background:#fff3f1;border-radius:3px;transform:rotate(2.6deg);box-shadow:0 12px 30px #b8316a22}
+.letter{position:relative;max-width:min(92vw,590px);padding:clamp(30px,6vw,58px) clamp(24px,6vw,52px);text-align:left;border-radius:3px;transform:rotate(-1deg);
+background:linear-gradient(to bottom,transparent 33%,#7a3a5214 33.2%,#fff8 33.6%,transparent 34.2%,transparent 66%,#7a3a5214 66.2%,#fff8 66.6%,transparent 67.2%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .38 0 0 0 0 .38 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),radial-gradient(ellipse at 28% 18%,#fffefc,#fdeeea 85%);
+box-shadow:0 1px 1px #0000001a,0 14px 30px #b8316a30,0 40px 80px #b8316a22}
+.letter:after{content:"";position:absolute;top:-13px;left:50%;width:104px;height:28px;margin-left:-52px;background:#f7a1bb8c;transform:rotate(-2deg);box-shadow:0 1px 2px #0002}
+#ltr{margin:0;font-family:'Caveat',cursive,var(--serif);font-weight:500;font-size:clamp(1.2rem,4.2vw,1.9rem);line-height:1.4;white-space:pre-wrap;color:#5a2140}
+.ily{font-size:clamp(3.4rem,18vw,10rem);font-style:italic;color:var(--deep);display:flex;justify-content:center;flex-wrap:wrap;text-shadow:0 0 50px #fff}
+.hr{position:absolute;bottom:-60px;opacity:0;animation:hrise linear infinite both}
+@keyframes hrise{0%{opacity:0;transform:translateY(0) scale(.7)}10%{opacity:.75}100%{opacity:0;transform:translateY(-115vh) translateX(var(--sw)) scale(1.1)}}
+@media(prefers-reduced-motion:reduce){.pt,.bk,.card:before{display:none}.w,.ch,.wish,.fr{animation-duration:.01s!important;animation-delay:0s!important}.flame,.tw{animation:none}.hr{display:none}}
+</style>
+</head>
+<body>
+<div id="bg"></div><canvas id="cf"></canvas>
+
+<section class="scene" id="s1"><h1 class="q" data-split="0.3">Is there something special today??</h1></section>
+
+<section class="scene" id="s2"><div class="card">
+<h2 data-split="0.5">Today is Sophie’s birthday.</h2>
+<p class="fade" style="animation-delay:2.2s">And this little place is all yours.</p></div></section>
+
+<section class="scene" id="s3">
+<div class="hb w" style="animation-delay:.3s">Happy Birthday</div>
+<h1 class="nm" id="nm"></h1>
+<svg class="ul" viewBox="0 0 300 20"><path d="M5 12 C 70 2, 140 20, 295 6"/></svg></section>
+
+<section class="scene" id="s4">
+<svg class="cake" id="cake" viewBox="0 0 300 250" aria-hidden="true">
+<defs>
+<linearGradient id="fg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#ffb84d"/></linearGradient>
+<radialGradient id="gl"><stop offset="0" stop-color="#ffd27a" stop-opacity=".7"/><stop offset="1" stop-color="#ffd27a" stop-opacity="0"/></radialGradient>
+</defs>
+<ellipse cx="150" cy="232" rx="135" ry="12" fill="#fff" opacity=".85"/>
+<rect x="40" y="150" width="220" height="80" rx="14" fill="#e86a92"/>
+<rect x="75" y="96" width="150" height="62" rx="12" fill="#f7a1bb"/>
+<g id="dots" fill="#fff" opacity=".75"></g>
+<path id="sc1" fill="#fff"/><path id="sc2" fill="#fff"/>
+<rect x="143" y="60" width="14" height="38" rx="3" fill="#fff7f9" stroke="#f7a1bb"/>
+<path d="M150 60V54" stroke="#5a2140" stroke-width="2"/>
+<circle class="glow" cx="150" cy="38" r="30" fill="url(#gl)"/>
+<g class="flame"><path d="M150 18C160 32 162 44 150 54C138 44 140 32 150 18Z" fill="url(#fg)"/></g>
+<path class="sm" d="M150 48C140 36 160 26 150 12"/><path class="sm" d="M150 48C160 36 140 26 150 12"/>
+<g transform="translate(30 70)"><path class="tw" d="M0-8L2-2L8 0L2 2L0 8L-2 2L-8 0L-2-2Z" fill="#fff"/></g>
+<g transform="translate(272 90)"><path class="tw" style="animation-delay:.8s" d="M0-8L2-2L8 0L2 2L0 8L-2 2L-8 0L-2-2Z" fill="#fff"/></g>
+<g transform="translate(66 22)"><path class="tw" style="animation-delay:1.4s" d="M0-8L2-2L8 0L2 2L0 8L-2 2L-8 0L-2-2Z" fill="#fff"/></g>
+<g transform="translate(238 30)"><path class="tw" style="animation-delay:.4s" d="M0-8L2-2L8 0L2 2L0 8L-2 2L-8 0L-2-2Z" fill="#fff"/></g>
+</svg>
+<p class="cap serif" id="cap">Make a wish.</p></section>
+
+<section class="scene" id="s5">
+<p class="wish" style="animation-delay:.5s">May this year be as gentle and bright as you are.</p>
+<p class="wish" style="animation-delay:3.3s">May everything good you give away find its way back to you.</p>
+<p class="wish" style="animation-delay:6.1s">You deserve the happiest day.</p></section>
+
+<section class="scene" id="s6"><div class="gal" id="gal"></div><h2 class="serif w" style="font-size:clamp(1.9rem,6.5vw,3.4rem);font-style:italic;animation-delay:1.8s">Happy Birthday to you.</h2></section>
+
+<section class="scene" id="s10"><h1 class="q" data-split="0.3">Today, you don’t have to do a thing.</h1>
+<p class="sub w" style="animation-delay:2.6s">Just enjoy being celebrated.</p></section>
+
+<section class="scene" id="s11">
+<div id="rh"><h2 class="serif w" style="font-size:clamp(2rem,8vw,4.4rem);font-style:italic;animation-delay:.2s">Reasons I love you</h2></div>
+<p id="wall"><span>Your smile.</span> <span>How you make me laugh.</span> <span>The way you always make time for me.</span> <span>How kind you are.</span> <span>You make ordinary days feel special.</span> <span>Your beautiful soul.</span> <span>The way you listen.</span> <span>How you care about little things.</span> <span>Your gentle heart.</span> <span>You make me want to be better.</span> <span>How easy it is to open up to you.</span> <span>Your sense of humor.</span> <span>How you make my whole day.</span> <span>Your messages.</span> <span>How you believe in me.</span> <span>Your patience.</span> <span>The way you turn anything into a joke.</span> <span>How you make people feel welcome.</span> <span>How you brighten my mornings.</span> <span>You are easy to talk to.</span> <span>Your honesty.</span> <span>The way you notice things.</span> <span>Your warmth.</span> <span>How you cheer me up.</span> <span>Your quiet strength.</span> <span>Your words.</span> <span>You make me feel at home.</span> <span>How you love the people close to you.</span> <span>Your curiosity.</span> <span>The little things you say.</span> <span>How you are always yourself.</span> <span>Your bravery.</span> <span>You make waiting feel worth it.</span> <span>How you make me smile for no reason.</span> <span>Your kindness to strangers.</span> <span>The way you say goodnight.</span> <span>Your thoughtful surprises.</span> <span>How you make hard days easier.</span> <span>Your beautiful mind.</span> <span>The way you tell stories.</span> <span>You are my favorite person to talk to.</span> <span>How you remember small details.</span> <span>Your gentle words.</span> <span>You make every conversation fun.</span> <span>How you make me feel understood.</span> <span>Your calm.</span> <span>The way you stay close, even from far away.</span> <span>You are so thoughtful.</span> <span>How you cheer for the people you love.</span> <span>Your dreams.</span> <span>The way you make me feel safe.</span> <span>Your generosity.</span> <span>How you glow when you are happy.</span> <span>You are truly one of a kind.</span> <span>How you forgive.</span> <span>How you make distance feel small.</span> <span>Your goodness.</span> <span>You make plans feel like adventures.</span> <span>Your adorable little habits.</span> <span>How you make every day feel better.</span> <span>Your determination.</span> <span>The way you care.</span> <span>You are my safe place.</span> <span>How you make me laugh when I am down.</span> <span>Your quiet moments.</span> <span>Your confidence.</span> <span>How you stand up for what you believe in.</span> <span>Your loyalty.</span> <span>You are always there for me.</span> <span>How you make small moments matter.</span> <span>Your style.</span> <span>The way you think things through.</span> <span>You are so easy to love.</span> <span>Your encouragement.</span> <span>How you make me proud.</span> <span>Your fun ideas.</span> <span>You are never boring.</span> <span>How you make memories out of nothing.</span> <span>Your tenderness.</span> <span>How you see the world.</span> <span>You are beautiful inside and out.</span> <span>How much you give.</span> <span>The way you make me feel chosen.</span> <span>Your presence.</span> <span>How you turn bad days around.</span> <span>You make me happier.</span> <span>Your bright energy.</span> <span>The way you think of others first.</span> <span>How lucky I feel.</span> <span>Your grace.</span> <span>You make everything better.</span> <span>How you grow every day.</span> <span>Your sweetness.</span> <span>You are my best friend.</span> <span>The way you make forever sound good.</span> <span>How you love.</span> <span>Your heart.</span> <span>Every day with you.</span> <span>Everything about you.</span> <span>And simply, that you are you.</span></p></section>
+
+<section class="scene" id="s12"><div class="lw"><div class="under"></div><div class="letter"><p id="ltr"><span id="typed"></span><span id="rest"></span></p></div></div></section>
+
+<section class="scene" id="s13"><div class="ily serif" id="ily"></div></section>
+
+<section class="scene" id="s7">
+<svg class="heart" viewBox="0 0 100 100"><path d="M50 88C10 58 6 30 28 18C40 12 50 20 50 30C50 20 60 12 72 18C94 30 90 58 50 88Z"/></svg>
+<h1 class="fin w" style="animation-delay:.8s">Happy Birthday, Sophie</h1>
+<p class="sub w" style="animation-delay:1.8s">Made with love, just for you, from Root.</p></section>
+
+<script>
+// Add Sophie's photos here as image data URLs or paths. Leave empty to skip the photo scene.
+const PHOTOS=[];
+
+const $=s=>document.querySelector(s),RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Background: soft glows and drifting petals
+const bg=$('#bg');
+for(let i=0;i<6;i++){const e=document.createElement('div');e.className='bk';const s=140+Math.random()*220;
+e.style.cssText=`width:${s}px;height:${s}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-duration:${12+Math.random()*10}s`;bg.appendChild(e)}
+for(let i=0;i<20;i++){const e=document.createElement('div');e.className='pt';const s=10+Math.random()*12;
+e.style.cssText=`width:${s}px;height:${s*.75}px;left:${Math.random()*100}%;background:${i%3?'#ffffffaa':'#e86a9255'};--dx:${(Math.random()-.5)*240}px;--rot:${360+Math.random()*360}deg;animation-duration:${12+Math.random()*12}s;animation-delay:-${Math.random()*20}s`;bg.appendChild(e)}
+// Text reveals
+document.querySelectorAll('[data-split]').forEach(e=>{const b=+e.dataset.split;
+e.innerHTML=e.textContent.split(' ').map((w,i)=>`<span class="w" style="animation-delay:${b+i*.2}s">${w}</span>`).join(' ')});
+$('#nm').innerHTML=[...'Sophie'].map((c,i)=>`<span class="ch" style="animation-delay:${.9+i*.14}s,${3.4+i*.14}s">${c}</span>`).join('');
+// Cake details
+const scal=(x,w,y)=>{const r=w/20;let d=`M${x} ${y}h${w}v6`;for(let i=0;i<10;i++)d+=`a${r} ${r} 0 0 1 ${-2*r} 0`;return d+'z'};
+$('#sc1').setAttribute('d',scal(40,220,150));$('#sc2').setAttribute('d',scal(75,150,96));
+for(let i=0;i<9;i++)$('#dots').insertAdjacentHTML('beforeend',`<circle cx="${62+i*22}" cy="200" r="4"/>`);
+// Photos
+PHOTOS.forEach((p,i)=>$('#gal').insertAdjacentHTML('beforeend',`<div class="fr${PHOTOS.length===1?' solo':''}" style="animation-delay:${.8+i*.5}s,${2+i*.5}s"><img src="${p}" alt=""></div>`));
+// Confetti
+const cv=$('#cf'),cx=cv.getContext('2d');let ps=[];
+const fit=()=>{cv.width=innerWidth;cv.height=innerHeight};fit();addEventListener('resize',fit);
+function burst(n){if(RM)return;const c=['#e86a92','#fff','#f7a1bb','#d9a54a','#b8316a'];
+for(let i=0;i<n;i++)ps.push({x:innerWidth/2,y:innerHeight*.45,vx:(Math.random()-.5)*18,vy:-Math.random()*14-2,s:5+Math.random()*7,c:c[i%5],r:Math.random()*6,round:i%4===0})}
+(function tick(){cx.clearRect(0,0,cv.width,cv.height);ps=ps.filter(p=>p.y<cv.height+20);
+ps.forEach(p=>{p.vy+=.2;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=.15;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.fillStyle=p.c;
+if(p.round){cx.beginPath();cx.arc(0,0,p.s/2.4,0,7);cx.fill()}else cx.fillRect(-p.s/2,-p.s/4,p.s,p.s/2);cx.restore()});
+requestAnimationFrame(tick)})();
+// Timeline: runs on its own, nothing to press
+function blow(){$('#cake').classList.add('blow');const c=$('#cap');c.style.opacity=0;
+setTimeout(()=>{c.textContent='Your wish is on its way.';c.style.opacity=1;burst(120)},700)}
+const LETTER="Sophie,\n\nHappy birthday. I hope today feels as warm and happy as you make everything feel for me.\n\nThank you for every laugh, every quiet moment, and every ordinary day you turned into something special.\n\nI hope this year gives you everything you deserve.\n\nAlways yours,\n\nRoot";
+function typeLetter(){const t=$('#typed'),r=$('#rest'),p=$('#ltr');let i=0;
+if(RM){t.textContent=LETTER;r.textContent='';p.classList.add('done');return}
+const tick=()=>{i++;t.textContent=LETTER.slice(0,i);r.textContent=LETTER.slice(i);
+if(i<LETTER.length)setTimeout(tick,/[.,\n]/.test(LETTER[i-1])?220:28);else p.classList.add('done')};
+setTimeout(tick,1000)}
+function reasons(){const wall=$('#wall'),sp=[...wall.children],vw=innerWidth,vh=innerHeight,W=Math.min(vw*.92,880);
+wall.style.width=W+'px';let lo=5,hi=30;
+for(let k=0;k<12;k++){const m=(lo+hi)/2;wall.style.fontSize=m+'px';wall.offsetHeight>vh*.84?hi=m:lo=m}
+wall.style.fontSize=lo+'px';
+const ht=wall.offsetHeight,L=(vw-W)/2,T=(vh-ht)/2;wall.style.left=L+'px';wall.style.top=T+'px';
+if(RM){wall.classList.add('go','all');$('#rh').style.display='none';return}
+const cam=(S,p,ms)=>{wall.style.transition=ms?`transform ${ms}ms cubic-bezier(.3,.7,.2,1)`:'none';
+wall.style.transform=`translate(${vw/2-L-S*p.x}px,${vh/2-T-S*p.y}px) scale(${S})`};
+const pos=e=>({x:e.offsetLeft+e.offsetWidth/2,y:e.offsetTop+e.offsetHeight/2}),sc=e=>Math.min(3.4,.86*vw/e.offsetWidth);
+cam(sc(sp[0]),pos(sp[0]),0);
+setTimeout(()=>$('#rh').classList.add('hide'),2000);
+let i=0,prev;
+const step=()=>{const e=sp[i],d=Math.max(.07,.9*Math.pow(.92,i));
+if(prev)prev.classList.remove('cur');e.classList.add('on','cur');prev=e;
+cam(sc(e)*(1-.55*Math.min(1,Math.max(0,(i-20)/60))),pos(e),Math.min(500,d*1100));
+if(++i<sp.length)setTimeout(step,d*1000);else setTimeout(()=>{sp.forEach(x=>x.classList.remove('cur'));wall.classList.add('all');wall.style.transition='transform 3.4s cubic-bezier(.5,0,.15,1)';wall.style.transform='translate(0,0) scale(1)'},700)};
+setTimeout(()=>{wall.classList.add('go');step()},2400)}
+$('#ily').innerHTML=[...'I love you'].map((c,i)=>`<span class="ch" style="animation-delay:${.5+i*.12}s,${3+i*.12}s">${c===' '?'&nbsp;':c}</span>`).join('');
+function hearts(){if(RM)return;const sc=$('#s13');for(let i=0;i<16;i++){const z=16+Math.random()*30;
+sc.insertAdjacentHTML('beforeend',`<svg class="hr" viewBox="0 0 100 100" style="left:${Math.random()*96}%;width:${z}px;--sw:${(Math.random()-.5)*120}px;animation-duration:${6+Math.random()*5}s;animation-delay:${Math.random()*6}s;fill:${i%3?'#e86a92':'#fff'}"><path d="M50 88C10 58 6 30 28 18C40 12 50 20 50 30C50 20 60 12 72 18C94 30 90 58 50 88Z"/></svg>`)}}
+const H={s11:reasons,s12:typeLetter,s13:hearts,s3:()=>burst(40),s4:()=>setTimeout(blow,5000),s7:()=>{burst(220);setTimeout(()=>burst(100),1400)}};
+const S=[['s1',5400],['s2',5600],['s3',7200],['s6',5500+PHOTOS.length*2000],['s4',9000],['s5',10800],['s11',28000],['s12',17000],['s10',6800],['s13',9500],['s7',0]].filter(s=>s[0]!=='s6'||PHOTOS.length);
+let cur=-1;
+function play(i){const prev=S[cur]&&$('#'+S[cur][0]);
+const go=()=>{if(prev)prev.classList.remove('on','out');const id=S[i][0];$('#'+id).classList.add('on');H[id]&&H[id]();cur=i;
+if(i<S.length-1)setTimeout(()=>play(i+1),S[i][1])};
+if(prev){prev.classList.add('out');setTimeout(go,700)}else go()}
+Promise.race([document.fonts.ready,new Promise(r=>setTimeout(r,1500))]).then(()=>setTimeout(()=>play(0),400));
+</script>
+</body>
+</html>
