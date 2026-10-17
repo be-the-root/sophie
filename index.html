@@ -90,6 +90,16 @@ box-shadow:0 1px 1px #0000001a,0 14px 30px #b8316a30,0 40px 80px #b8316a22}
 </style>
 </head>
 <body>
+
+<!-- Background Audio Element & Toggle Button -->
+<audio id="bg-music" loop>
+  <source src="golden-hour.mp3" type="audio/mpeg">
+</audio>
+
+<button id="music-btn" aria-label="Toggle Music" style="position:fixed; bottom:20px; right:20px; z-index:9999; background:var(--paper); border:2px solid var(--rose); color:var(--deep); width:45px; height:45px; border-radius:50%; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px #b8316a33; transition:transform 0.2s;">
+  🎵
+</button>
+
 <div id="bg"></div><canvas id="cf"></canvas>
 
 <section class="scene" id="s1"><h1 class="q" data-split="0.3">Is there something special today??</h1></section>
@@ -150,6 +160,34 @@ box-shadow:0 1px 1px #0000001a,0 14px 30px #b8316a30,0 40px 80px #b8316a22}
 <p class="sub w" style="animation-delay:1.8s">Made with love, just for you, from Root.</p></section>
 
 <script>
+// Background Music Control
+const music = $('#bg-music');
+const musicBtn = $('#music-btn');
+let musicStarted = false;
+
+function toggleMusic() {
+  if (music.paused) {
+    music.play().then(() => {
+      musicStarted = true;
+      musicBtn.textContent = '🔊';
+    }).catch(e => console.log("Audio play blocked:", e));
+  } else {
+    music.pause();
+    musicBtn.textContent = '🔇';
+  }
+}
+
+musicBtn.addEventListener('click', toggleMusic);
+
+document.addEventListener('click', () => {
+  if (!musicStarted) {
+    music.play().then(() => {
+      musicStarted = true;
+      musicBtn.textContent = '🔊';
+    }).catch(e => console.log("Autoplay prevented"));
+  }
+}, { once: true });
+
 // Add Sophie's photos here as image data URLs or paths. Leave empty to skip the photo scene.
 const PHOTOS=[];
 
